@@ -4,7 +4,7 @@ import Home from "./routes/home";
 import Profile from "./routes/profile";
 import Login from "./routes/login";
 import CreateAccount from "./routes/create-account";
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import { useEffect, useState } from "react";
 import LoadingScreen from "./components/loading-screen";
@@ -38,32 +38,38 @@ const router = createBrowserRouter([
 const GlobalStyles = createGlobalStyle`
   ${reset};
   * {
-    box-sizing: bordor-box;
+    box-sizing: border-box;
   }
   body {
-    background-color: black;
+    background-color: #000000;
     color: white;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
       Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   }
 `;
 
+const Wrapper = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+`;
+
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true);
   const init = async () => {
     // wait for firebase
     await auth.authStateReady();
-    // setTimeout(() => setIsLoading(false), 2000);
-    setIsLoading(false);
+    // setTimeout(() => setLoading(false), 2000);
+    setLoading(false);
   };
   useEffect(() => {
     init();
   }, []);
   return (
-    <>
+    <Wrapper>
       <GlobalStyles />
       {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
-    </>
+    </Wrapper>
   );
 }
 
