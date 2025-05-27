@@ -6,12 +6,13 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 480px;
+  width: 420px;
   padding: 50px 0px;
 `;
 
 const Title = styled.h1`
   font-size: 42px;
+  font-weight: 600;
 `;
 
 const Form = styled.form`
@@ -77,7 +78,7 @@ export default function CreateAccount() {
   };
   return (
     <Wrapper>
-      <Title>Sign up to Sueweeter 🍬</Title>
+      <Title>Join Sueweeter 🍭</Title>
       <Form onSubmit={onSubmit}>
         <Input
           onChange={onChange}
