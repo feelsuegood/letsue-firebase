@@ -60,6 +60,8 @@ const SubmitBtn = styled.input`
   }
 `;
 
+const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB in bytes
+
 export default function PostTweetForm() {
   const [isLoading, setLoading] = useState(false);
   const [tweet, setTweet] = useState("");
@@ -71,9 +73,18 @@ export default function PostTweetForm() {
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
+    console.log(e);
+    console.log(e.target.value);
+    console.log("-----------------");
+    console.log(files);
     // only accept one file
     //TODO: chode challenge: add size limitaiton
     if (files && files.length === 1) {
+      if (files[0].size > MAX_FILE_SIZE) {
+        alert("Please upload image file less than 1MB");
+        e.target.value = "";
+        return;
+      }
       setFile(files[0]);
     }
   };
