@@ -1,15 +1,17 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../firebase";
-import { Form, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import {
+  Form,
   Error,
   Input,
   Switcher,
   Title,
   Wrapper,
 } from "../components/auth-component";
+import GithubButton from "../components/github-btn";
 
 // const errors = {
 //   "auth/email-already-in-use": "That email already exists",
@@ -69,7 +71,7 @@ export default function CreateAccount() {
   };
   return (
     <Wrapper>
-      <Title>Join Sueweeter 🍭</Title>
+      <Title>Join Switter 🍭</Title>
       <Form onSubmit={onSubmit}>
         <Input
           onChange={onChange}
@@ -105,6 +107,7 @@ export default function CreateAccount() {
       <Switcher>
         Already have an account?&nbsp;<Link to={"/login"}>Log in &rarr;</Link>
       </Switcher>
+      <GithubButton />
     </Wrapper>
   );
 }

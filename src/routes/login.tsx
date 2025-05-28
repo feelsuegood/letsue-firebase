@@ -11,6 +11,7 @@ import {
   Title,
   Wrapper,
 } from "../components/auth-component";
+import GithubButton from "../components/github-btn";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ export default function Login() {
   };
   return (
     <Wrapper>
-      <Title>Log into Sueweeter 🍭</Title>
+      <Title>Log into Switter 🍭</Title>
       <Form onSubmit={onSubmit}>
         <Input
           onChange={onChange}
@@ -84,6 +85,7 @@ export default function Login() {
         Don't have an account? &nbsp;
         <Link to={"/create-account"}>Create one &rarr;</Link>
       </Switcher>
+      <GithubButton />
     </Wrapper>
   );
 }

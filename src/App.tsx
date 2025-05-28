@@ -65,6 +65,7 @@ function App() {
     // wait for firebase
     await auth.authStateReady();
     // setTimeout(() => setLoading(false), 2000);
+
     setLoading(false);
   };
   useEffect(() => {
