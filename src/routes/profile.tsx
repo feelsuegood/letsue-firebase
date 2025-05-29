@@ -1,8 +1,18 @@
 import styled from "styled-components";
-import { auth, storage } from "../firebase";
-import React, { useState } from "react";
+import { auth, db, storage } from "../firebase";
+import React, { useEffect, useState } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
+import {
+  collection,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
+import type { ITweet } from "../components/timeline";
+import Tweet from "../components/tweet";
 
 const Wrapper = styled.div`
   display: flex;
@@ -35,9 +45,19 @@ const Name = styled.span`
   font-size: 22px;
 `;
 
+const Tweets = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+`;
+//TODO: code challenge:
+// add edit name button
+//TODO: after edit, delete refresh page -> use onSnapshot?
 export default function Profile() {
   const user = auth.currentUser;
   const [avatar, setAvatar] = useState(user?.photoURL);
+  const [tweets, setTweets] = useState<ITweet[]>([]);
   const onAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     if (!user) {
@@ -54,6 +74,25 @@ export default function Profile() {
       });
     }
   };
+
+  const fetchTweets = async () => {
+    const tweetQuery = query(
+      collection(db, "tweets"),
+      //* need to create indexes first in firestore
+      where("userId", "==", user?.uid),
+      orderBy("createdAt", "desc"),
+      limit(25),
+    );
+    const snapshot = await getDocs(tweetQuery);
+    const tweets = snapshot.docs.map((doc) => {
+      const { tweet, createdAt, userId, username, photo } = doc.data();
+      return { tweet, createdAt, userId, username, photo, id: doc.id };
+    });
+    setTweets(tweets);
+  };
+  useEffect(() => {
+    fetchTweets();
+  }, []);
   return (
     <Wrapper>
       <AvatarUpload htmlFor="avatar">
@@ -84,6 +123,11 @@ export default function Profile() {
         {/* {user?.displayName? user.displayName: "Anonymous"} */}
         {user?.displayName ?? "Anonymous"}
       </Name>
+      <Tweets>
+        {tweets.map((tweet) => (
+          <Tweet key={tweet.id} {...tweet} />
+        ))}
+      </Tweets>
     </Wrapper>
   );
 }
