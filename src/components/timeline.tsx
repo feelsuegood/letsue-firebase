@@ -71,6 +71,7 @@ export default function Timeline() {
     return () => {
       //clean up
       //if unsubscribe is true excute unsubscribe func
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       unsubscribe && unsubscribe();
     };
   }, []);

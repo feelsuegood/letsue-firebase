@@ -16,6 +16,7 @@ const Column = styled.div`
   &:last-child {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
   }
 `;
 
