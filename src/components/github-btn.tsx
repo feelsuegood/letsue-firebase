@@ -37,8 +37,8 @@ export default function GithubButton() {
       //! signInWithRedirect works on deployment env
       //   await signInWithRedirect(auth, provider);
       navigate("/");
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      console.log(e);
     }
   };
   return (

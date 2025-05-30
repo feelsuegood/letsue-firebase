@@ -67,9 +67,10 @@ export default function Tweet({ username, photo, tweet, userId, id }: ITweet) {
       }
     } catch (e) {
       console.log(e);
-    } finally {
-      console.log("deleted");
     }
+    // finally {
+    //   console.log("deleted");
+    // }
   };
   return (
     <Wrapper>

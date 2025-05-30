@@ -1,3 +1,5 @@
+//post-tweet-from.tsx
+
 import { addDoc, collection, updateDoc } from "firebase/firestore";
 import { useState } from "react";
 import styled from "styled-components";
@@ -73,12 +75,12 @@ export default function PostTweetForm() {
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
-    console.log(e);
-    console.log(e.target.value);
-    console.log("-----------------");
-    console.log(files);
+    // console.log(e);
+    // console.log(e.target.value);
+    // console.log("-----------------");
+    // console.log(files);
     // only accept one file
-    //TODO: chode challenge: add size limitaiton
+    //[x] chode challenge: add size limitaiton
     if (files && files.length === 1) {
       if (files[0].size > MAX_FILE_SIZE) {
         alert("Please upload image file less than 1MB");
@@ -111,10 +113,16 @@ export default function PostTweetForm() {
           // `tweets/${user.uid}-${user.displayName}/${doc.id}`,
           `tweets/${user.uid}/${doc.id}`,
         );
-        const result = await uploadBytes(locationRef, file);
-        const url = await getDownloadURL(result.ref);
-        await updateDoc(doc, { photo: url });
-        setFile(null);
+        try {
+          const result = await uploadBytes(locationRef, file);
+          // console.log(result);
+          const url = await getDownloadURL(result.ref);
+          await updateDoc(doc, { photo: url });
+          setFile(null);
+        } catch (e) {
+          console.log("😱", e);
+          // console.log(auth.currentUser?.uid);
+        }
       }
     } catch (e) {
       console.log(e);
