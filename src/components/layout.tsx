@@ -4,10 +4,10 @@ import { auth } from "../firebase";
 
 const Wrapper = styled.div`
   display: grid;
-  gap: 20px;
+  gap: 0px;
   grid-template-columns: 1fr 4fr;
   height: 100%;
-  padding: 50px 0px;
+  padding: 50px 35px;
   width: 100%;
   max-width: 860px;
 `;
@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 const Menu = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   gap: 20px;
 `;
 
@@ -25,12 +25,12 @@ const MenuItem = styled.div`
   align-items: center;
   justify-content: center;
   border: 2px solid white;
-  height: 50px;
-  width: 50px;
-  border-radius: 25px;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
   /* border-radius: 50%; */
   svg {
-    width: 30px;
+    width: 20px;
     fill: white;
   }
   &.log-out {
